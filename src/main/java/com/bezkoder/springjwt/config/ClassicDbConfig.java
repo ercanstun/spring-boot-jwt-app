@@ -13,12 +13,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class ClassicDbConfig {
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.erp")
+    @ConfigurationProperties(prefix = "spring.datasource.classic")
     public DataSource classicDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
+    @Bean(name = "classicJdbcTemplate")
     public JdbcTemplate classicJdbcTemplate(
             @Qualifier("classicDataSource") DataSource ds) {
         return new JdbcTemplate(ds);

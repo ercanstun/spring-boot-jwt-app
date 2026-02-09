@@ -15,7 +15,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.bezkoder.springjwt.jwt.repository",
+        basePackages = {
+                "com.bezkoder.springjwt.jwt.repository",
+                "com.bezkoder.springjwt.metric.repository"
+        },
         entityManagerFactoryRef = "jwtEntityManagerFactory",
         transactionManagerRef = "jwtTransactionManager"
 )
@@ -36,7 +39,10 @@ public class JwtDataSourceConfig {
 
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
-        emf.setPackagesToScan("com.bezkoder.springjwt.jwt.model");
+        emf.setPackagesToScan(
+                "com.bezkoder.springjwt.jwt.model",
+                "com.bezkoder.springjwt.metric.entity"
+        );
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         return emf;
     }
@@ -48,5 +54,7 @@ public class JwtDataSourceConfig {
             @Qualifier("jwtEntityManagerFactory") LocalContainerEntityManagerFactoryBean emf) {
         return new JpaTransactionManager(emf.getObject());
     }
+
+
 
 }

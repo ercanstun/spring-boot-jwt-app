@@ -2,7 +2,7 @@ package com.bezkoder.springjwt.payload.request;
 
 import java.util.Set;
 
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
 
 public class SignupRequest {
   @NotBlank
